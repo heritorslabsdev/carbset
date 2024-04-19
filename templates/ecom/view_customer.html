@@ -1,0 +1,333 @@
+{% extends 'ecom/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style>
+
+    strong{
+      color: #5f5e5e;
+    }
+
+    .wrapper {
+      margin-inline: auto;
+      margin-top: 30px;
+    }
+
+    table {
+      width: 100%;
+      background: hsl(var(--table-background-hue) var(--table-background-saturation) var(--table-background-light));
+      border-collapse: collapse;
+    }
+
+    th, 
+    td {
+      padding: 1rem;
+    }
+
+    th {
+      text-align: left;
+    }
+
+    th {
+      background: #4fcac5;
+      color: white;
+    }
+
+    tr {
+      background: #ffffff;
+      
+    }
+
+    td{
+      border-bottom: 2px solid #f5f5f5 ;
+      color: #adadad;
+
+    }
+
+
+
+    .status{
+      background-color: #eaf2fe;
+      color: #5f87d8;
+      padding: 5px 10px;
+      border-radius: 30px;
+      width:120px;
+      text-align:center;
+      align-items: center;
+
+    }
+
+    .status span{
+      position: relative;
+      left: -12px;
+    }
+
+    .status2{
+      background-color: #fefdea;
+      color: #e4db62;
+      padding: 5px 10px;
+      border-radius: 30px;
+      width:175px;
+      text-align:center;
+      align-items: center;
+  
+    }
+  
+    .status2 span{
+      position: relative;
+      left: -12px;
+    }
+
+    .status3{
+      background-color: #ecfeea;
+      color: #62e494;
+      padding: 5px 10px;
+      border-radius: 30px;
+      width:175px;
+      text-align:center;
+      align-items: center;
+  
+    }
+  
+    .status3 span{
+      position: relative;
+      left: -12px;
+    }
+
+    .status4{
+      background-color: #feeaea;
+      color: #e46262;
+      padding: 5px 10px;
+      border-radius: 30px;
+      width:175px;
+      text-align:center;
+      align-items: center;
+  
+    }
+  
+    .status4 span{
+      position: relative;
+      left: -12px;
+    }
+
+    td img{
+      border-radius: 5px;
+      width:50px;
+      height:50px;
+      object-fit:cover;
+      margin-right: 10px;
+    }
+
+
+    .title{
+      display: flex;
+      justify-content: space-between;
+      margin-top: 100px;
+
+    }
+
+
+    .biggie{
+      margin: 50px 0px;
+    }
+
+    
+
+    .add{
+      padding:6px 9px;
+      font-size: large;
+      background-color: #4fcac5;
+      border-radius: 5px;
+      color: white;
+      transition: 0.5s;
+    }
+
+    .add:hover{
+      color: white;
+      text-decoration: none;
+      background-color: #276563;
+    }
+
+
+    .heading .text{
+      font-size: 25px;
+      font-weight: 700;
+      color: #252525;
+      margin-left: 10px;
+    }
+
+    .heading i {
+      padding:6px 9px;
+      font-size: larger;
+      background-color: #4fcac5;
+      border-radius: 5px;
+      color: white;
+    }
+
+    .update i{
+      padding: 3px 6px;
+      color: #0F57B3;
+      background-color: #E2EDFB;
+      border-radius: 5px;
+    }
+
+    .delete i{
+      padding: 3px 6px;
+      color: #FFFFFB;
+      background-color: #ED5E60;
+      border-radius: 5px;
+    }
+
+    
+
+
+    @media (max-width: 650px) {
+
+      .add i{
+        padding: 6px 9px;
+      }
+
+      .add span{
+        display: none;
+      }
+
+      th {
+        display: none;
+      }
+      
+      td {
+        display: grid;
+        gap: 0.5rem;
+        grid-template-columns: 18ch auto;
+        padding: 0.5rem 1rem;
+      }  
+      
+      td:first-child {
+        padding-top: 2rem;
+      }
+      td:last-child {
+        padding-bottom: 2rem;
+      }
+      td::before {
+        content: attr(data-cell) ": ";
+        font-weight: 700;
+        text-transform: capitalize;
+      }
+    }
+
+</style>
+</head>
+<div class="biggie">
+  <div class="title">
+    <div class='heading'>
+      <i class="uil uil-clock-three"></i>
+      <span class="text">Clients</span>
+    </div>
+  </div>
+  <div class="wrapper">
+      <table>
+        <tr>
+          <th><span style='margin-right:5px;'><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></span>Name</th>
+          <th>Mobile</th>
+          <th>Address</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+  
+        {% for c in customers %}
+        {% if c %}
+        <tr>
+          <td data-cell="Client">
+            <div><span  style='margin-right:5px;'><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></span><strong>{{c.get_name}}</strong></div>
+          </td> 
+          <td data-cell="Contact">{{c.mobile}}</td> 
+          <td data-cell="Address">{{c.address}}</td> 
+          <td data-cell="Update"><a class="update" href="{% url 'update-customer' c.id  %}"><i class="uil uil-pen"></i></a></td> 
+          <td data-cell="Delete"><a class="delete" href="{% url 'delete-customer' c.id  %}"><i class="uil uil-trash-alt"></i></a></td> 
+        </tr>
+        {%else%}
+          <br><br><br>
+          <h1>No Client</h1>
+        {% endif %}
+        {% endfor %}
+        
+      </table>
+  </div>
+</div>
+{% comment %} <div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Total Customer List</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Mobile</th>
+          <th>Address</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      {% for c in customers %}
+      <tr>
+        <td> {{c.get_name}}</td>
+        <td>{{c.mobile}}</td>
+        <td>{{c.address}}</td>
+        <td><a class="btn btn-primary btn-xs" href="{% url 'update-customer' c.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td><a class="btn btn-danger btn-xs" href="{% url 'delete-customer' c.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div> {% endcomment %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function AddTableARIA() {
+        try {
+          var allTables = document.querySelectorAll('table');
+          for (var i = 0; i < allTables.length; i++) {
+            allTables[i].setAttribute('role','table');
+          }
+          var allCaptions = document.querySelectorAll('caption');
+          for (var i = 0; i < allCaptions.length; i++) {
+            allCaptions[i].setAttribute('role','caption');
+          }
+          var allRowGroups = document.querySelectorAll('thead, tbody, tfoot');
+          for (var i = 0; i < allRowGroups.length; i++) {
+            allRowGroups[i].setAttribute('role','rowgroup');
+          }
+          var allRows = document.querySelectorAll('tr');
+          for (var i = 0; i < allRows.length; i++) {
+            allRows[i].setAttribute('role','row');
+          }
+          var allCells = document.querySelectorAll('td');
+          for (var i = 0; i < allCells.length; i++) {
+            allCells[i].setAttribute('role','cell');
+          }
+          var allHeaders = document.querySelectorAll('th');
+          for (var i = 0; i < allHeaders.length; i++) {
+            allHeaders[i].setAttribute('role','columnheader');
+          }
+          // this accounts for scoped row headers
+          var allRowHeaders = document.querySelectorAll('th[scope=row]');
+          for (var i = 0; i < allRowHeaders.length; i++) {
+            allRowHeaders[i].setAttribute('role','rowheader');
+          }
+        } catch (e) {
+          console.log("AddTableARIA(): " + e);
+        }
+      }
+      
+      AddTableARIA();
+</script> 
+{% endblock content %}

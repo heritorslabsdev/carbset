@@ -1,0 +1,705 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+    height: 36px;
+    width: 120px;
+    border: none;
+    color:white;
+    background: #078586;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    text-decoration:none;
+  }
+
+  .button:hover {
+    color:white;
+  }
+
+   p {
+    color: #078586;
+  }
+
+  .button2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+    height: 36px;
+    width: 120px;
+    border:2px solid;
+    border-color:#078586 ;
+    background: white;
+    border-radius: 20px;
+    color: #078586;
+    cursor: pointer;
+    transition: 0.5s;
+    text-decoration:none;
+  }
+
+  .button2:hover {
+    background: #078586;
+    color:white;
+  }
+  .product-imgs img{
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+}
+.img-display{
+    overflow: hidden;
+}
+.img-showcase{
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.img-showcase img{
+    min-width: 100%;
+}
+.img-select{
+    display: flex;
+}
+.img-item{
+    margin: 0.3rem;
+}
+.img-item:nth-child(1),
+.img-item:nth-child(2),
+.img-item:nth-child(3){
+    margin-right: 0;
+}
+.img-item:hover{
+    opacity: 0.8;
+}
+.product-content{
+    padding: 2rem 1rem;
+}
+</style>
+<section>
+    <div style='margin-top:20px; background-color: #f9fafb;'class="container-fluid">
+        <h1>{{ product.project_name }}</h1>
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div style="border: none;" class="card">
+                    <div class="card-body p-1">
+                        <div class="card border-0 ">
+                            <div class = "product-imgs">
+                                <div class = "img-display">
+                                  <div class = "img-showcase">
+                                    <img src = "{% static product.product_image.url %}" alt = "shoe image">
+                                    <img src = "{% static product.product_image.url %}" alt = "shoe image">
+                                    <img src = "{% static product.product_image.url %}" alt = "shoe image">
+                                    <img src = "{% static product.product_image.url %}" alt = "shoe image">
+                                  </div>
+                                </div>
+                                <div class = "img-select">
+                                  <div class = "img-item">
+                                    <a href = "#" data-id = "1">
+                                      <img src = "{% static product.product_image.url %}" alt = "shoe image">
+                                    </a>
+                                  </div>
+                                  <div class = "img-item">
+                                    <a href = "#" data-id = "2">
+                                      <img src = "{% static product.product_image.url %}" alt = "shoe image">
+                                    </a>
+                                  </div>
+                                  <div class = "img-item">
+                                    <a href = "#" data-id = "3">
+                                      <img src = "{% static product.product_image.url %}" alt = "shoe image">
+                                    </a>
+                                  </div>
+                                  <div class = "img-item">
+                                    <a href = "#" data-id = "4">
+                                      <img src = "{% static product.product_image.url %}" alt = "shoe image">
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            
+                            
+                        </div>    
+                     </div>
+                    <div class="card border-0 b-3"> 
+                        <div class="card-body p-3 collapse show" id="collapseExample2">
+                            <div style="padding:50px; " >
+                                <div style="display: flex;justify-content:space-between; align-items:center;">
+                                    <p>Pricing</p>
+                                    <p><strong>${{ product.price }}</strong> tCO2e</p>
+                                </div><hr>
+                                <div style="display: flex;justify-content:space-between; align-items:center;">
+                                    <p>Amount</p>
+                                    <div style="border: 2px solid #3ddab5; border-radius:5px;" class="counter">
+                                        <button style="background-color:  #3ddab5; border:none; border-radius:0px;" class="btn btn-primary btn-sm counter-btn" onclick="decreaseCounter()" width="5px" height="5px">-</button>
+
+                                        <input style=" border:none;width:50px;"type="number" id="counterInput" class="counter-input" value="500" min="500" onchange="updateCounterValue(this.value)"><span>tCO2e</span>
+
+                                        <button style="background-color:  #3ddab5; border:none;border-radius:0px;" class="btn btn-primary btn-sm counter-btn" width="5px" height="5px" onclick="increaseCounter()">+</button>
+                                      </div>
+                                </div><hr>
+                                <div style="display: flex;justify-content:space-between; align-items:center;">
+                                    <p>Available Stock</p>
+                                    <p><strong>7568</strong></p>
+                                </div>
+                                <div style="display: flex;justify-content:space-between; align-items:center;">
+                                    <p>Minimum purchases</p>
+                                    <p><strong>500</strong></p>
+                                </div><hr>
+                                <div style="display: flex;justify-content:space-between; align-items:center;">
+                                    <p>Payment Fee</p>
+                                    <p><strong>$0.30</strong></p>
+                                </div>
+                                <div style="display: flex;justify-content:space-between; align-items:center;">
+                                    <p>VAT</p>
+                                    <p><strong>$3.48</strong></p>
+                                </div>
+                                <div style="display: flex;justify-content:space-between; align-items:center;">
+                                    <p>Total</p>
+                                    <p><strong>{{total}}</strong></p>
+                                </div> 
+                                <hr>
+                                <div style="display: flex;justify-content:space-around; align-items:center;margin:5px;">
+                                    <a href="{% url 'buy_now' pk=product.id %}" class="button" class="button">Buy now</a>
+                                    <a href='{% url 'add-to-cart' pk=product.pk %}' class="button2">+ Cart</a>
+                                </div>
+                                
+
+                            </div>
+                           
+                                
+                        </div>
+                    </div>       
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class = "product-content">
+                    <h4>Description</h4>
+                    <hr>
+                    <p>{{ product.description }}</p><br>
+                    <h6>Benefits</h6>
+                    <p>Join EcoBoost to make a positive impact on the environment. Reduce carbon emissions, support renewable energy, and enhance your organization's sustainability. Boost your reputation, attract eco-conscious stakeholders, and achieve cost savings. Act now for a greener future with EcoBoost.</p>
+                </div><br>
+                <div class = "sdg">
+                      <h4>Sustainable Development Goals </h4>
+                      <hr>
+                      <ul>
+                        <li><i style="color: #2a977d; margin:5px; font-size:22px;" class="uil uil-check-circle"></i>Good Health and well being</li>
+                        <li><i style="color: #2a977d; margin:5px; font-size:22px;" class="uil uil-check-circle"></i>Gender Equality</li>
+                        <li><i style="color: #2a977d; margin:5px; font-size:22px;" class="uil uil-check-circle"></i>Clean water and sanitation</li>
+                        <li><i style="color: #2a977d; margin:5px; font-size:22px;" class="uil uil-check-circle"></i>Climate Action</li>
+                        
+                      </ul>
+                </div><br>
+                <div class = "">
+                    <h4>Project Info</h4>
+                    <hr>
+                    <ul>
+                        <li>Country:<span> Sierra Leone</span></li>
+                        <li>Company:<span> CO2balance UK Limited</span></li>
+                        <li>Company Address:<span> CO2balance,1 Discovery House,Taunton,Somerset,Sierra Leone</span></li>
+                        <li>Web:<span> https://registry.goldstandard.org</span></li>
+                        <li>Type:<span> Water Purification</span></li>
+                        <li>Mechanism:<span> Avoidance</span></li>
+                      </ul>
+                </div><br>
+                <div class = "">
+                    <h4>Vintage</h4>
+                    <hr>
+                    <div style="display: flex;justify-content:space-between; align-items:center;">
+                        <p style="color:#14493d;">2021</p>
+                        <p >1,426 tCO2e <strong style="color:#14493d;">${{ product.price }} tCO2e</strong></p>
+                        <button class="button">select</button>
+                    </div><hr>
+                    <div style="display: flex;justify-content:space-between;">
+                        <p style="color:#14493d;">2020</p>
+                        <p>85 tCO2e <strong style="color:#14493d;">${{ product.price }} tCO2e</strong></p>
+                        <a class="button">select</a>
+                    </div>
+                </div>
+                  </div>
+                </div>
+              </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <script>
+        const mobileNav = document.getElementById("mobile-nav");
+const closeBtn = document.getElementById("mobile-close-btn");
+const openBtn = document.getElementById("mobile-open-btn");
+
+openBtn.addEventListener("click", function() {
+    mobileNav.classList.toggle("active");
+})
+closeBtn.addEventListener("click", function() {
+    mobileNav.classList.toggle("active");
+})
+
+const imgs = document.querySelectorAll('.img-select a');
+const imgBtns = [...imgs];
+let imgId = 1;
+
+imgBtns.forEach((imgItem) => {
+    imgItem.addEventListener('click', (event) => {
+        event.preventDefault();
+        imgId = imgItem.dataset.id;
+        slideImage();
+    });
+});
+
+function slideImage(){
+    const displayWidth = document.querySelector('.img-showcase img:first-child').clientWidth;
+
+    document.querySelector('.img-showcase').style.transform = `translateX(${- (imgId - 1) * displayWidth}px)`;
+}
+
+window.addEventListener('resize', slideImage);
+
+let counterValue = 500; // Initial counter value
+
+function increaseCounter() {
+  counterValue += 1;
+  document.getElementById('counterInput').value = counterValue;
+}
+
+function decreaseCounter() {
+  if (counterValue > 500) {
+    counterValue -= 1;
+    document.getElementById('counterInput').value = counterValue;
+  }
+}
+
+function updateCounterValue(value) {
+  if (value >= 500) {
+    counterValue = value;
+  } else {
+    document.getElementById('counterInput').value = counterValue;
+  }
+}
+
+
+// ==== CART ==================
+let cartIcon = document.querySelector('#cart-icon');
+let cart = document.querySelector('.cart');
+let closeCart = document.querySelector('#close-cart');
+
+// == Open cart
+cartIcon.onclick = () => {
+	cart.classList.add('active');
+};
+
+// == Close cart
+closeCart.onclick = () => {
+	cart.classList.remove('active');
+};
+
+// == Close Working JavaScript
+if (document.readyState == 'loading') {
+	document.addEventListener('DOMContentLoaded', ready);
+} else {
+	ready();
+};
+
+// == Making Function
+function ready() {
+	// Remove items from cart
+	var removeCartButtons = document.getElementsByClassName('cart-remove');
+	console.log(removeCartButtons);
+	for (var i = 0; i < removeCartButtons.length; i++) {
+		var button = removeCartButtons[i];
+		button.addEventListener('click', removeCartItem);
+	}
+	// == Quantity changes
+	var quantityInputs = document.getElementsByClassName('cart-quantity');
+	for (var i = 0; i < quantityInputs.length; i++) {
+		var input = quantityInputs[i];
+		input.addEventListener('change', quantityChanged);
+	}
+	// Add to cart
+	var addCart = document.getElementsByClassName('add-cart');
+	for (var i = 0; i < addCart.length; i++) {
+		var button = addCart[i];
+		button.addEventListener('click', addCartClicked);
+	}
+
+	// Buy button work
+	document.getElementsByClassName('btn-buy')[0]
+		.addEventListener('click', buyButtonClicked);
+};
+
+// Buy button
+function buyButtonClicked() {
+	alert('Your order is placed');
+	var cartContent = document.getElementsByClassName('cart-content')[0];
+	while (cartContent.hasChildNodes()) {
+		cartContent.removeChild(cartContent.firstChild);
+	}
+	updatetotal();
+};
+
+// == Remove items from cart
+function removeCartItem(event) {
+	var buttonClicked = event.target;
+	buttonClicked.parentElement.remove();
+	updatetotal();
+};
+
+// == Quantity changes
+function quantityChanged(event) {
+	var input = event.target;
+	if (isNaN(input.value) || input.value <= 0) {
+		input.value = 1;
+	}
+	updatetotal();
+};
+
+// Add to cart
+function addCartClicked(event) {
+	var button = event.target;
+	var shopProducts = button.parentElement;
+	var title = shopProducts.getElementsByClassName('product-title')[0].innerText;
+	var price = shopProducts.getElementsByClassName('price')[0].innerText;
+	var productImg = shopProducts.getElementsByClassName('product-img')[0].src;
+	addProductToCart(title, price, productImg);
+	updatetotal();
+};
+function addProductToCart(title, price, productImg) {
+	var cartShopBox = document.createElement('div');
+	cartShopBox.classList.add('cart-box');
+	var cartItems = document.getElementsByClassName('cart-content')[0];
+	var cartItemsNames = cartItems.getElementsByClassName('cart-product-title');
+	for (var i = 0; i < cartItemsNames.length; i++) {
+		if (cartItemsNames[i].innerText == title) {
+			alert('You have already add this item to cart');
+			return;
+		}
+	}
+
+	var cartBoxContent = `
+  <img src="${productImg}" alt="image" class="cart-img">
+		<div class="detail-box">
+			<div class="cart-product-title">${title}</div>
+			<div class="cart-price">${price}</div>
+			<input class="cart-quantity" type="number" value="1">
+		</div>
+	<i class='bx bxs-trash-alt cart-remove'></i>
+`;
+
+	cartShopBox.innerHTML = cartBoxContent
+	cartItems.append(cartShopBox);
+	cartShopBox.
+		getElementsByClassName('cart-remove')[0]
+		.addEventListener('click', removeCartItem);
+	cartShopBox
+		.getElementsByClassName('cart-quantity')[0]
+		.addEventListener('change', quantityChanged);
+};
+// == Uptade total
+function updatetotal() {
+	var cartContent = document.getElementsByClassName('cart-content')[0];
+	var cartBoxes = cartContent.getElementsByClassName('cart-box');
+	var total = 0;
+	for (var i = 0; i < cartBoxes.length; i++) {
+		var cartBox = cartBoxes[i];
+		var priceElement = cartBox.getElementsByClassName('cart-price')[0];
+		var quantityElement = cartBox.getElementsByClassName('cart-quantity')[0];
+		var price = parseFloat(priceElement.innerText.replace('$', ''));
+		var quantity = quantityElement.value;
+		total = total + (price * quantity);
+	}
+	// if price contain some cents value
+	total = Math.round(total * 100) / 100;
+
+	document.getElementsByClassName('total-price')[0].innerText = '$' + total;
+};
+
+    
+    
+    //INTERNET SPEED DETECT
+    var imageAddr = "images/slide_1.jpg"; 
+    var downloadSize = 289059;
+    function ShowProgressMessage(msg) {
+    if (console) {
+    if (typeof msg == "string") {
+    console.log(msg);
+    } else {
+    for (var i = 0; i < msg.length; i++) {
+    console.log(msg[i]);
+    }
+    }
+    }
+    }
+    function InitiateSpeedDetection() {
+    ShowProgressMessage("Please wait...");
+    window.setTimeout(MeasureConnectionSpeed, 1);
+    };    
+    if (window.addEventListener) {
+    window.addEventListener('load', InitiateSpeedDetection, false);
+    } else if (window.attachEvent) {
+    window.attachEvent('onload', InitiateSpeedDetection);
+    }
+    function MeasureConnectionSpeed() {
+    var startTime, endTime;
+    var download = new Image();
+    download.onload = function () {
+    endTime = (new Date()).getTime();
+    showResults();
+    }
+    download.onerror = function (err, msg) {
+    ShowProgressMessage("Invalid image, or error downloading");
+    }
+    startTime = (new Date()).getTime();
+    var cacheBuster = "?nnn=" + startTime;
+    download.src = imageAddr + cacheBuster;
+    function showResults() {
+    var duration = (endTime - startTime) / 1000;
+    var bitsLoaded = downloadSize * 8;
+    var speedBps = (bitsLoaded / duration).toFixed(2);
+    var speedKbps = (speedBps / 1024).toFixed(2);
+    var speedMbps = (speedKbps / 1024).toFixed(0);
+    if(speedMbps<="1"){
+    document.getElementById("banner").style.display='none';
+    document.getElementById("container").style.marginTop='20vh';
+    }
+    }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    $(function() {
+    var $clientslider = $('#clientlogo');
+    var clients = $clientslider.children().length;
+    var clientwidth = (clients * 220); 
+    $clientslider.css('width', clientwidth);
+    var rotating = true;
+    var clientspeed = 1800;
+    var seeclients = setInterval(rotateClients, clientspeed);
+    $(document).on({
+    mouseenter: function() {
+    rotating = false;
+    },
+    mouseleave: function() {
+    rotating = true;
+    }
+    }, '#ourclients');
+    function rotateClients() {
+    if (rotating != false) {
+    var $first = $('#clientlogo li:first');
+    $first.animate({
+    'margin-left': '-33%'
+    }, 2000, function() {
+    $first.remove().css({
+    'margin-left': '0px'
+    });
+    $('#clientlogo li:last').after($first);
+    });
+    }
+    }
+    });
+
+
+  function updateAmounts(value) {
+    document.getElementById('minAmount').value = value;
+    document.getElementById('maxAmount').value = value * 10;
+  }
+
+  function updateSlider(value) {
+    document.getElementById('priceRange').value = value;
+  }
+    </script>
+{% endblock content %}
+
+{% comment %} <section>
+  <div class='carter' style="padding:50px; margin:20px 10px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;color:#078586;">
+      <h3>Review your Cart</h3>
+    </div>
+    <hr>
+    {% if products %}
+      {% for p in products %}
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center;">
+          <div>
+            <img src="{% static p.product_image.url %}" style="width: 100px; height: 100px; border-radius: 15px;" alt="">
+          </div>
+          <div>
+            <h6 style="padding-top: 10px; width: 300px;">{{ p.name }}: {{ p.description }}.</h6><br>
+          </div>
+          <p><strong>{{ p.price }}</strong> x <strong>500 tCO2e</strong></p>
+          <div style="border: 2px solid #3ddab5; border-radius: 5px;" class="counter">
+            <button style="background-color: #3ddab5; border: none; border-radius: 0px;" class="btn btn-primary btn-sm counter-btn" onclick="decreaseCounter()" width="5px" height="5px">-</button>
+
+            <input style="border: none; width: 50px;" type="number" id="counterInput" class="counter-input" value="500" min="500" onchange="updateCounterValue(this.value)"><span>tCO2e</span>
+
+            <button style="background-color: #3ddab5; border: none; border-radius: 0px;" class="btn btn-primary btn-sm counter-btn" width="5px" height="5px" onclick="increaseCounter()">+</button>
+          </div>
+        </div>
+        <hr>
+      {% endfor %}
+    {% else %}
+      <br>
+      <div style='display:flex;align-items:center;justify-content:center;text-align:center;color:#078586;'>
+        <h1>No Project</h1>
+      </div>
+      <br>
+      <hr>
+    {% endif %}
+
+
+      
+      <div style="display: flex;justify-content:space-between; flex-wrap:wrap; align-items:center;">
+          <p>Payment Fee</p>
+          <p><strong>$0.30</strong></p>
+      </div>
+      <div style="display: flex;justify-content:space-between;flex-wrap:wrap; align-items:center;">
+          <p>VAT</p>
+          <p><strong>$3.48</strong></p>
+      </div>
+      <div style="display: flex;justify-content:space-between;flex-wrap:wrap; align-items:center;">
+          <p>Total</p>
+          <p><strong>${{total}}</strong></p>
+      </div> 
+      <hr>
+      <div style="display: flex;justify-content:space-around;flex-wrap:wrap; align-items:center;margin:5px;">
+          <a href="/customer-address" class="button">Buy now</a>
+
+      </div>
+      
+
+  </div>
+ 
+      
+</div>
+</div>       
+</div>
+</div>
+
+</section>
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<style media="screen">
+  .button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.button2 {
+  background-color: white;
+  color: black;
+  border: 2px solid #008CBA;
+}
+
+.button2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+</style>
+
+</head>
+<!--
+written By : sumit kumar
+facebook : fb.com/sumit.luv
+-->
+<br><br><br><br>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 style="text-align:center;" class="panel-title">My Cart</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Remove From Cart</th>
+
+        </tr>
+      </thead>
+      {% for p in products %}
+  {% if p %}
+
+      <tr>
+        <td> {{p.name}}</td>
+        <td> <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+        <td>{{p.price}}</td>
+        <td>{{p.description}}</td>
+
+        <td><a class="btn btn-danger btn-xs" href="{% url 'remove-from-cart' p.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+
+      </tr>
+      {%else%}
+      <br><br><br>
+      <h1>no products</h1>
+      {% endif %}
+      {% endfor %}
+    </table>
+  </div>
+</div>
+<br><br><br>
+<div style="text-align: center;">
+  <button class="button button2">Total {{total}}</button>
+  <a href="/customer-address"><button class="button" ><span>Purchase </span></button></a>
+</div>
+
+
+<br><br><br><br><br> {% endcomment %}
+<!--
+developed By : sumit kumar
+facebook : fb.com/sumit.luv
+youtube : youtube.com/lazycoders
+--> 

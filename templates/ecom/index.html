@@ -1,0 +1,573 @@
+{% extends 'ecom/homebase.html' %}
+{% load static %}
+{% block content %}
+
+{%if products%}
+<h3 style="text-align:center; color:yellow;">{{word}}</h3>
+<!-- Button trigger modal -->
+
+  <!-- Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Add your form code here -->
+        <form>
+          <div class="modal-header">
+            <h5 class="modal-title" id="messageModalLabel">Send Message</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Add your form fields here -->
+            <div class="mb-3">
+              <label for="messageInput" class="form-label">Message</label>
+              <textarea class="form-control" id="messageInput" rows="4"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<div style='margin-top:20px; padding-left: 45px; 'class="container-fluid">
+  <div class="row mb-5">
+      <div class="col-md-3">
+          <div style="border: none; margin-top:20px; background-color:#078586; border-radius: 15px;" class="card">
+              <div style="color:white;font-size:larger;font-weight:500;" class="card-header">Filters</div>
+              <div  style="background-color:#078586; color:white;border:none;" class="card-body p-1">
+                      <div class="card-header p-2 " data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
+                          <p class="m-0 h6">Project Kind</p>
+                      </div>
+                      <div style="background-color:#078586;border:none;" class="card-body p-0 collapse show" id="collapseExample1">
+                          <ul class="list-group list-group-flush" style="height:120px;overflow:auto;border:none;">
+                              <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                  <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                      <label class="custom-control-label" for="customCheck1">Renewable Energy</label>
+                                  </div>
+                                  <span class="badge badge-secondary badge-pill">14</span>
+                              </li>
+                              <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                  <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                      <label class="custom-control-label" for="customCheck1">Energy Efficiency</label>
+                                  </div>
+                                  <span class="badge badge-secondary badge-pill">14</span>
+                              </li>
+                              <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                  <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                      <label class="custom-control-label" for="customCheck1">Forestry</label>
+                                  </div>
+                                  <span class="badge badge-secondary badge-pill">14</span>
+                              </li>
+                              <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                  <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                      <label class="custom-control-label" for="customCheck1">Methane Capture/Avoidance</label>
+                                  </div>
+                                  <span class="badge badge-secondary badge-pill">14</span>
+                              </li>
+                              <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">Waste Management</label>
+                                </div>
+                                <span class="badge badge-secondary badge-pill">14</span>
+                            </li>
+                            <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">Other</label>
+                                </div>
+                                <span class="badge badge-secondary badge-pill">14</span>
+                            </li>
+                          </ul>
+                    </div>
+                  <div style="background-color:#078586; color:white;font-size:larger;font-weight:500;" class="card-body p-1">
+                      <div class="card-header p-2 " data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false">
+                          <p class="m-0 h6">Price</p>
+                      </div>
+                      <div  class="card-body p collapse show" id="collapseExample4">
+                          <div class="form-row">
+                              <div class="form-group col-md-6">
+                                  <label style="font-size: small;font-weight:300;">Min</label>
+                                  <input class="form-control" placeholder="$0" type="number">
+                              </div>
+                              <div class="form-group text-right col-md-6">
+                                  <label style="font-size: small;font-weight:300;">Max</label>
+                                  <input class="form-control" placeholder="$1,0000" type="number">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div style="background-color:#078586; color:white;" class="card-body p-1">
+                      <div class="card-header p-2 " data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false">
+                          <p class="m-0 h6">Vintage</p>
+                      </div>
+                      <div class="card-body p-3 collapse show" id="collapseExample2">
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="startYear" style="font-size: small;font-weight:300;">Since:</label>
+                                <select class="form-control" id="startYear">
+                                  <option value="2020">2020</option>
+                                  <option value="2019">2019</option>
+                                  <!-- Add more options for the years -->
+                                </select>
+                      
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                    <label for="endYear" style="font-size: small;font-weight:300;">Until:</label>
+                                        <select class="form-control" id="endYear">
+                                          <option value="2023">2023</option>
+                                          <option value="2022">2022</option>
+                                          <!-- Add more options for the years -->
+                                        </select>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+              </div>        
+              
+              <div style="background-color:#078586; color:white;"  class="card-body p-1">
+                          <div class="card-header p-2 " data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
+                              <p class="m-0 h6">Standard Type</p>
+                          </div>
+                          <div class="card-body p-0 collapse show" id="collapseExample1">
+                              <ul class="list-group list-group-flush" style="height:120px;overflow:auto;">
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">VCS</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Gold Standard</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Puro Standard</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">MITECO</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Trinity Natural Capital Markets</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Regen Standards</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">ICR Standards</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">ACR</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Biotrust</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">CDM Standard</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">CAR Standard</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                              </ul>
+                          </div>
+              </div>    
+              <div style="background-color:#078586; color:white;" class="card-body p-1">
+                          <div class="card-header p-2 " data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
+                              <p class="m-0 h6">Registry</p>
+                          </div>
+                          <div class="card-body p-0 collapse show" id="collapseExample1">
+                              <ul class="list-group list-group-flush" style="height:120px;overflow:auto;">
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Verra Registry</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">CDM Registry</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">GSF Registry</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">MITECO</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">The Reserve</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Evident</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Puro Registry</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">EcoRegistry</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Trinity Natural Capital Markets Registry</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Regan Standard</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">ACR</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">ICR</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">BioTrust</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Gold Standard</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                              </ul>
+                          </div>
+              </div>
+              <div style="background-color:#078586; color:white;" class="card-body p-1">
+                          <div class="card-header p-2 " data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
+                              <p class="m-0 h6">Mechanism</p>
+                          </div>
+                          <div class="card-body p-0 collapse show" id="collapseExample1">
+                              <ul class="list-group list-group-flush" style="height:90px;overflow:auto;">
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Avoidance</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Removal</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                              </ul>
+                          </div>
+              </div>
+              <div style="background-color:#078586; color:white;" class="card-body p-1">
+                          <div class="card-header p-2 " data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
+                              <p class="m-0 h6">Characteristics</p>
+                          </div>
+                          <div class="card-body p-0 collapse show" id="collapseExample1">
+                              <ul class="list-group list-group-flush" style="height:120px;overflow:auto;">
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Plastic</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Sustainable Water Usage</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Biodiversity</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Colombia Carbon Tax</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Blue Carbon</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                              </ul>
+                          </div>
+              </div>
+              <div style="background-color:#078586; color:white;" class="card-body p-1">
+                          <div class="card-header p-2 " data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
+                              <p class="m-0 h6">Impact</p>
+                          </div>
+                          <div class="card-body p-0 collapse show" id="collapseExample1">
+                              <ul class="list-group list-group-flush" style="height:120px;overflow:auto;">
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Clean Oceans</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Protect Biodiversity</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Protect the Planet</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Protect WildLife</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Save Forest</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1"></label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Puro Registry</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">EcoRegistry</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Trinity Natural Capital Markets Registry</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Regan Standard</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">ACR</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">ICR</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">BioTrust</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                                  <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                                      <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">Gold Standard</label>
+                                      </div>
+                                      <span class="badge badge-secondary badge-pill">14</span>
+                                  </li>
+                              </ul>
+                          </div>
+              </div>
+              <div style="display: flex;justify-content:center;border:none;margin:15px;" class="card-footer">
+                  <button type="button" style='background:white;color:#078586;border:none;width:400px;' class="btn btn-block btn-primary">Apply Filter</button>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-9">
+                  <div style="display: flex;flex-wrap:wrap;">
+                    <div style="position: fixed; bottom: 50px; right: 50px;">
+                        <a href='/send-feedback' type="button" class="btn btn-primary btn-floating btn-lg" style="width: 60px; height: 60px; z-index:999999;background:#078586;border:2px solid white;" >
+                            <i style='font-size:25px;' class="uil uil-comment-plus"></i>
+                        </a>
+                    </div>
+                    {% for p in products %}
+                      <div class="dcard-list">
+                          <article class="dcard">
+                          <figure class="dcard-image">
+                              <img src="{% static p.product_image.url %}" alt="An orange painted blue, cut in half laying on a blue background" />
+                          </figure>
+                          <div class="dcard-header">
+                              <a href="{% url 'project_view' pk=p.pk %}">{{p.name}}: {{p.description}}</a>
+                              <button class="icon-button">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Heart">
+                                      <path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
+                                  </svg>
+                      
+                              </button>
+                          </div>
+                          <div class="dcard-footer">
+                              <div style='font-size:large;font-weight:600; color:#078586;' class="card-meta card-meta--views">
+                                  <i style='font-size:larger;'class="uil uil-dollar-sign-alt"></i>
+                                  {{p.price}}
+                              </div>
+                              <div style='padding-left:25px;' class="card-meta card-meta--date">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Calendar">
+                                      <rect x="2" y="4" width="20" height="18" rx="4" />
+                                      <path d="M8 2v4" />
+                                      <path d="M16 2v4" />
+                                      <path d="M2 10h20" />
+                                  </svg>
+                                  Jul 26, 2019
+                              </div>
+                          </div>
+                      </article>
+                      </div>
+                      {% endfor %}
+
+                                        
+                  </div>
+              </div>
+          </div>
+
+                  
+                     
+                      
+
+                  
+                  </div>
+              </div>
+          </div>
+      </div>
+          </div>
+      </div>
+      
+  </section>
+  {%else%}
+<h3 style="text-align:center; color:yellow;">No Search Found</h3>
+{%endif%}
+
+{% endblock content %}

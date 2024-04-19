@@ -1,0 +1,72 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+    height: 36px;
+    width: 120px;
+    border: none;
+    color:white;
+    background: #078586;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    text-decoration:none;
+  }
+
+  .button:hover {
+    color:white;
+  }
+
+  .wishlist p {
+    color: #078586;
+  }
+</style>
+
+<section>
+  <div class='wishlist' style="padding:50px; margin:20px 10px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;color:#078586;">
+      <h3>Your Wishlist</h3>
+    </div>
+    <hr>
+    {% if products %}
+    {% for p in products %}
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center;">
+        <div>
+          <img src="{% static p.product_image.url %}" style="width: 100px; height: 100px; border-radius: 15px;" alt="">
+        </div>
+        <div>
+          <h6 style="padding-top: 10px; width: 300px;">{{ p.name }}: {{ p.description }}.</h6><br>
+        </div>
+        <p><strong>{{ p.price }}</strong> x <strong>500 tCO2e</strong></p>
+        <div style="border: 2px solid #3ddab5; border-radius: 5px;" class="counter">
+          <button style="background-color: #3ddab5; border: none; border-radius: 0px;" class="btn btn-primary btn-sm counter-btn" onclick="decreaseCounter()" width="5px" height="5px">-</button>
+    
+          <input style="border: none; width: 50px;" type="number" id="counterInput" class="counter-input" value="500" min="500" onchange="updateCounterValue(this.value)"><span>tCO2e</span>
+    
+          <button style="background-color: #3ddab5; border: none; border-radius: 0px;" class="btn btn-primary btn-sm counter-btn" width="5px" height="5px" onclick="increaseCounter()">+</button>
+        </div>
+        
+      </div>
+      <hr>
+    {% endfor %}
+  
+    {% else %}
+      <br>
+      <div style='display:flex;align-items:center;justify-content:center;text-align:center;color:#078586;'>
+        <h1>No Projects</h1>
+      </div>
+      <br>
+      <hr>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock content %}

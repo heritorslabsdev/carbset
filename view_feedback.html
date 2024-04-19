@@ -1,0 +1,235 @@
+{% extends 'ecom/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+
+<head>
+  <style>
+
+    .testimonials .section-inner {
+      width: 90%;
+      position: relative;
+    }
+    .testimonials .section-inner .section-main {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      row-gap: 25px;
+      align-items: center;
+    }
+    .testimonials .section-inner .section-main .section-title {
+      font-size: 45px;
+      color: white;
+    }
+    .testimonials .section-inner .section-main .section-text {
+      font-size: 16px;
+      color: white;
+      line-height: 22px;
+      text-align: center;
+    }
+    .testimonials .section-inner .section-main .testimonials {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      -moz-column-gap: 25px;
+      column-gap: 25px;
+      row-gap: 25px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .testimonials .section-inner .section-main .testimonials .testimonial {
+      text-decoration: none;
+      background: #078586;
+      padding: 30px 40px;
+      height: auto;
+      width: calc(50% - 25px);
+      border-radius: 5px;
+      display: grid;
+      cursor: pointer;
+      box-shadow: inset 0px 0px 2px #b0b7c2;
+      transition: all 0.5s ease;
+    }
+    .testimonials .section-inner .section-main .testimonials .testimonial .testimonial-content .testimonial-text {
+      color: white;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.3px;
+      word-spacing: 1px;
+    }
+    .testimonials .section-inner .section-main .testimonials .testimonial .testimonial-content .testimonial-profile {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      -moz-column-gap: 15px;
+      column-gap: 15px;
+      align-items: center;
+    }
+    .testimonials .section-inner .section-main .testimonials .testimonial .testimonial-content .testimonial-profile .testimonial-user-data h4 {
+      font-size: 14px;
+    }
+    .testimonials .section-inner .section-main .testimonials .testimonial .testimonial-content .testimonial-profile .testimonial-user-data span {
+      font-size: 12px;
+      color: #b3b3b3;
+    }
+    .testimonials .section-inner .section-main .testimonials .testimonial:hover {
+      box-shadow: 0px 0px 15px rgba(105, 105, 105, 0.1294117647);
+    }
+    .alert {
+      margin-left: 25%;
+      margin-right: 25%;
+      padding: 20px;
+      background-color: #f44336;
+      color: white;
+    }
+
+    .w3-panel p {
+      padding-top: 10px;
+    }
+
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: #81C1C2;
+    }
+
+    .title{
+      display: flex;
+      justify-content: space-between;
+      margin-top: 100px;
+
+    }
+
+
+    .biggie{
+      margin: 50px 0px;
+    }
+
+    
+
+    .add{
+      padding:6px 9px;
+      font-size: large;
+      background-color: #4fcac5;
+      border-radius: 5px;
+      color: white;
+      transition: 0.5s;
+    }
+
+    .add:hover{
+      color: white;
+      text-decoration: none;
+      background-color: #276563;
+    }
+
+
+    .heading .text{
+      font-size: 25px;
+      font-weight: 700;
+      color: #252525;
+      margin-left: 10px;
+    }
+
+    .heading i {
+      padding:6px 9px;
+      font-size: larger;
+      background-color: #4fcac5;
+      border-radius: 5px;
+      color: white;
+    }
+
+@media screen and (max-width: 500px) {
+  .testimonials {
+    padding-top: 0;
+  }
+  .testimonials .section-inner .section-main .section-title {
+    font-size: 40px;
+  }
+  .testimonials .section-inner .section-main .section-text {
+    font-size: 14px;
+  }
+  .testimonials .section-inner .section-main .testimonials {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+  .testimonials .section-inner .section-main .testimonials .testimonial {
+    width: 100%;
+    padding: 15px 20px;
+  }
+  .testimonials .section-inner .section-main .testimonials .testimonial .testimonial-content .testimonial-text {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: unset;
+  }
+  .testimonials .section-inner .section-main .testimonials .testimonial .testimonial-content .testimonial-profile {
+    margin-top: 15px;
+    -moz-column-gap: 12px;
+         column-gap: 12px;
+  }
+  .testimonials .section-inner .section-main .testimonials .testimonial .testimonial-content .testimonial-profile .testimonial-user-data {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+  }
+}
+
+  </style>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+
+<div class="biggie">
+  <div class="title">
+    <div class='heading'>
+      <i class="uil uil-clock-three"></i>
+      <span class="text">Client Feedback</span>
+    </div>
+  </div>
+<section class="testimonials">
+  <div class="section-inner">
+      <div class="section-main">
+          <div class="testimonials">
+            {%for f in feedbacks%}
+              <div class="testimonial">
+                <span style="display: flex;justify-content: flex-end;" class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <p style='color:#81C1C2;font-size: large;font-weight: 600;' class="testimonial-text">Feedback</p>
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">{{f.feedback}}</p>
+                        <div class="testimonial-profile">
+                            <div class="testimonial-user-data">
+                                <p style='color:white;font-size: medium;font-weight: 400;''>{{f.name}}</p>
+                                <span style='color:#81C1C2;'>{{f.date}}</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              {%endfor%}
+          </div>
+      </div>
+  </div>
+</section> 
+
+
+{% comment %} <br><br><br><br>
+<h2 style="text-align:center; color:blue;">Feedbacks By User</h2>
+<hr>
+{%for f in feedbacks%}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>{{f.date}} ||By : {{f.name}} </strong><br> {{f.feedback}}
+</div>
+{%endfor%} {% endcomment %}
+<!--
+developed By : sumit kumar
+facebook : fb.com/sumit.luv
+youtube : youtube.com/lazycoders
+-->
+{% endblock content %}

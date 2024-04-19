@@ -1,0 +1,205 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  /* Custom CSS styling */
+
+p{
+color:#078586;
+}
+
+  .container {
+    margin-top: 15px;
+  }
+
+  .left-div,
+  .right-div {
+    margin: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+
+  .profile-section {
+    padding: 20px;
+  }
+
+  .profile-name {
+    font-size: 26px;
+  }
+
+  .profile-username {
+    font-size: 20px;
+    margin-top: 5px;
+    color:#078586;
+  }
+
+  .edit-button {
+    text-align: right;
+    margin-top: -40px;
+  }
+
+  .edit-button button {
+    font-size: 16px;
+  }
+
+  .profile-details {
+    margin-top: 30px;
+  }
+
+  .profile-details h4 {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  .profile-details p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 576px) {
+    .left-div {
+      margin-bottom: 20px;
+    }
+  }
+</style>
+</head>
+<body style="background-color: #f0eeee;">
+<div class="container">
+  <div class="row">
+    <!-- Left Div -->
+    <div class="col-md-3">
+      <div class="left-div">
+        <ul  class="nav flex-column">
+          <li class="nav-item">
+            <a style="color:#252525;"class="nav-link active" data-bs-toggle="tab" href="#tdiv1">
+              <i style='padding-right:10px;'class="uil uil-user"></i>Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a style="color:#252525;"class="nav-link" data-bs-toggle="tab" href="#div2">
+              <i style='padding-right:10px;'class="uil uil-usd-circle"></i>Transactions
+            </a>
+          </li>
+          <li class="nav-item">
+            <a style="color:#252525;"class="nav-link" data-bs-toggle="tab" href="#div3">
+              <i style='padding-right:10px;'class="uil uil-pagelines"></i>Offsets
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="right-div">
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="tdiv1">
+            <div class="profile-section">
+              <div class="row">
+                <div class="col-md-8">
+                  <h2 class="profile-name">{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+                  <p class="profile-username">@{{ request.user}}</p>
+                </div>
+                <div class="col-md-4 edit-button">
+                  <a style='background:#078586;border:none;' href='/edit-profile'class="btn btn-primary"><i class="uil uil-pen"></i> edit</a>
+                </div>
+              </div>
+              <hr>
+              <div class="profile-details">
+                <div class="row">
+                  <div class="col-md-4">
+                    <h4><i class="uil uil-envelope"></i> Email</h4>
+                    <p>{{ request.user.email}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <h4><i class="uil uil-calendar-alt"></i> Date of Birth</h4>
+                    <p>January 1, 1990</p>
+                  </div>
+                  <div class="col-md-4">
+                    <h4><i class="uil uil-credit-card"></i>National ID No.</h4>
+                    <p>123456789</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <h4><i class="uil uil-home"></i> Address</h4>
+                    <p>{{customer.address}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <h4><i class="uil uil-postcard"></i> Postal Code</h4>
+                    <p>12345</p>
+                  </div>
+                  <div class="col-md-4">
+                    <h4><i class="uil uil-building"></i> City</h4>
+                    <p>City</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <h4><i class="uil uil-map-marker"></i> Province/State</h4>
+                    <p>State</p>
+                  </div>
+                  <div class="col-md-4">
+                    <h4><i class="uil uil-globe"></i> Country</h4>
+                    <p>Country</p>
+                  </div>
+                  <div class="col-md-4">
+                    <h4><i class="uil uil-phone"></i> Contact</h4>
+                    <p>{{customer.mobile}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="div2">
+            <h4>My Transactions</h4>
+            <div class="transaction-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2023-05-01</td>
+                    <td>Transaction 1</td>
+                    <td>$100.00</td>
+                  </tr>
+                  <tr>
+                    <td>2023-05-05</td>
+                    <td>Transaction 2</td>
+                    <td>$50.00</td>
+                  </tr>
+                  <tr>
+                    <td>2023-05-10</td>
+                    <td>Transaction 3</td>
+                    <td>$200.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="div3">
+            <h4>My Offsets</h4>
+            <div class="offsets-section">
+              <ul class="offsets-list">
+                <li>Project 1</li>
+                <li>Project 2</li>
+                <li>Project 3</li>
+                <li>Project 4</li>
+                <li>Project 5</li>
+                <li>Project 6</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+{% endblock content %}

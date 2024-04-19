@@ -1,0 +1,285 @@
+{% extends 'ecom/admin_base.html' %}
+{% load static %}
+{% block content %}
+<br>
+{%include 'ecom/admin_dashboard_cards.html'%}
+<br>
+
+<style>
+
+    strong{
+      color: #5f5e5e;
+    }
+
+    .wrapper {
+      margin-inline: auto;
+    }
+
+    table {
+      width: 100%;
+      background: hsl(var(--table-background-hue) var(--table-background-saturation) var(--table-background-light));
+      border-collapse: collapse;
+    }
+
+    th, 
+    td {
+      padding: 1rem;
+    }
+
+    th {
+      text-align: left;
+    }
+
+    th {
+      background: #4fcac5;
+      color: white;
+    }
+
+    tr {
+      background: #ffffff;
+      
+    }
+
+    td{
+      border-bottom: 2px solid #f5f5f5 ;
+      color: #adadad;
+
+    }
+
+
+
+    .status{
+      background-color: #eaf2fe;
+      color: #5f87d8;
+      padding: 5px 10px;
+      border-radius: 30px;
+      width:120px;
+      text-align:center;
+      align-items: center;
+
+    }
+
+    .status span{
+      position: relative;
+      left: -12px;
+    }
+
+    .status2{
+      background-color: #fefdea;
+      color: #e4db62;
+      padding: 5px 10px;
+      border-radius: 30px;
+      width:175px;
+      text-align:center;
+      align-items: center;
+  
+    }
+  
+    .status2 span{
+      position: relative;
+      left: -12px;
+    }
+
+    .status3{
+      background-color: #ecfeea;
+      color: #62e494;
+      padding: 5px 10px;
+      border-radius: 30px;
+      width:175px;
+      text-align:center;
+      align-items: center;
+  
+    }
+  
+    .status3 span{
+      position: relative;
+      left: -12px;
+    }
+
+    .status4{
+      background-color: #feeaea;
+      color: #e46262;
+      padding: 5px 10px;
+      border-radius: 30px;
+      width:175px;
+      text-align:center;
+      align-items: center;
+  
+    }
+  
+    .status4 span{
+      position: relative;
+      left: -12px;
+    }
+
+    td img{
+      border-radius: 5px;
+      width:50px;
+      height:50px;
+      object-fit:cover;
+      margin-right: 10px;
+    }
+
+
+    @media (max-width: 650px) {
+      th {
+        display: none;
+      }
+      
+      td {
+        display: grid;
+        gap: 0.5rem;
+        grid-template-columns: 18ch auto;
+        padding: 0.5rem 1rem;
+      }  
+      
+      td:first-child {
+        padding-top: 2rem;
+      }
+      td:last-child {
+        padding-bottom: 2rem;
+      }
+      td::before {
+        content: attr(data-cell) ": ";
+        font-weight: 700;
+        text-transform: capitalize;
+      }
+    }
+
+</style>
+
+<div class="activity">
+  <div class="title">
+      <i class="uil uil-clock-three"></i>
+      <span class="text">Recent Activity</span>
+  </div>
+  <div class="wrapper">
+      <table>
+        <tr>
+          <th><span style='margin-right:5px;'><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></span>Client</th>
+          <th>Contact</th>
+          <th>Address</th>
+          <th>Project</th>
+          <th>Status</th>
+        </tr>
+  
+        {% for product,customer,order in data %}
+        <tr>
+          {% for c in customer %}
+          <td data-cell="Client">
+            <div><span  style='margin-right:5px;'><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></span><strong>{{c.get_name}}</strong></div>
+          </td> 
+          <td data-cell="Contact">{{c.mobile}}</td> 
+          <td data-cell="Address">{{order.address}}</td> 
+          {% endfor %}
+
+          {% for p in product %}
+          <td data-cell="Project"><img src="{% static p.product_image.url %}" alt="pimg"><span> {{p.name}}</span></td>
+
+
+            {% if order.status == 'Pending'%}
+              <td data-cell="Status"><li class="status"><span>{{order.status}}</span></li></td>
+            {% elif order.status == 'Delivered' %}
+              <td data-cell="Status"><li class="status3"><span>{{order.status}}</span></li></td>
+            {% elif order.status == 'Out for Delivery' %}
+              <td data-cell="Status"><li class="status2"><span>{{order.status}}</span></li></td>
+            {%else%}
+              <td data-cell="Status"><li class="status4"><span>{{order.status}}</span></li></td>
+            {%endif%}
+          {% endfor %}
+        </tr>
+        {% endfor %}
+  
+        
+      </table>
+    </div>
+
+  {% comment %} <div class="activity-data">
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Client Name</th>
+          <th>Client Contact</th>
+          <th>Client Address</th>
+          <th>Project Name</th>
+          <th>Project Image</th>
+          <th>Status</th>
+
+        </tr>
+      </thead>
+      {% for product,customer,order in data %}
+      <tr>
+        {% for c in customer %}
+        <td> {{c.get_name}}</td>
+        <td>{{c.mobile}}</td>
+        <td>{{order.address}}</td>
+
+        {% endfor %}
+        {% for p in product %}
+        <td> {{p.name}}</td>
+        <td> <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+
+        {% if order.status == 'Pending'%}
+        <td> <span class="label label-info">{{order.status}}</span></td>
+        {% elif order.status == 'Delivered' %}
+        <td> <span class="label label-success">{{order.status}}</span></td>
+        {% elif order.status == 'Out for Delivery' %}
+        <td> <span class="label label-warning">{{order.status}}</span></td>
+        {%else%}
+          <td> <span class="label label-primary">{{order.status}}</span></td>
+        {%endif%}
+        {% endfor %}
+      </tr>
+      {% endfor %}
+
+    </table>
+  </div>
+</div>
+</div>
+{% endcomment %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function AddTableARIA() {
+        try {
+          var allTables = document.querySelectorAll('table');
+          for (var i = 0; i < allTables.length; i++) {
+            allTables[i].setAttribute('role','table');
+          }
+          var allCaptions = document.querySelectorAll('caption');
+          for (var i = 0; i < allCaptions.length; i++) {
+            allCaptions[i].setAttribute('role','caption');
+          }
+          var allRowGroups = document.querySelectorAll('thead, tbody, tfoot');
+          for (var i = 0; i < allRowGroups.length; i++) {
+            allRowGroups[i].setAttribute('role','rowgroup');
+          }
+          var allRows = document.querySelectorAll('tr');
+          for (var i = 0; i < allRows.length; i++) {
+            allRows[i].setAttribute('role','row');
+          }
+          var allCells = document.querySelectorAll('td');
+          for (var i = 0; i < allCells.length; i++) {
+            allCells[i].setAttribute('role','cell');
+          }
+          var allHeaders = document.querySelectorAll('th');
+          for (var i = 0; i < allHeaders.length; i++) {
+            allHeaders[i].setAttribute('role','columnheader');
+          }
+          // this accounts for scoped row headers
+          var allRowHeaders = document.querySelectorAll('th[scope=row]');
+          for (var i = 0; i < allRowHeaders.length; i++) {
+            allRowHeaders[i].setAttribute('role','rowheader');
+          }
+        } catch (e) {
+          console.log("AddTableARIA(): " + e);
+        }
+      }
+      
+      AddTableARIA();
+</script> 
+
+
+
+{% endblock content %}

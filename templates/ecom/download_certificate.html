@@ -1,0 +1,103 @@
+<html>
+<head>
+    <style type='text/css'>
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            color: #0C4A37; /* Dark green text color */
+            display: table;
+            font-family: Georgia, serif;
+            font-size: 24px;
+            text-align: center;
+            background-color: #D2F5E3; /* Green background color */
+        }
+        .container {
+            border: 20px solid #A1E9C5; /* Light green border color */
+            width: 750px;
+            height: 563px;
+            display: table-cell;
+            vertical-align: middle;
+            background-color: #FFF; /* White background color */
+        }
+        .logo {
+            color: #0C4A37; /* Dark green logo color */
+        }
+
+        .marquee {
+            color: #0C4A37; /* Dark green marquee color */
+            font-size: 48px;
+            margin: 20px;
+        }
+        .assignment {
+            margin: 20px;
+        }
+        .person {
+            border-bottom: 2px solid black;
+            font-size: 32px;
+            font-style: italic;
+            margin: 20px auto;
+            width: 400px;
+        }
+        .reason {
+            margin: 20px;
+        }
+        .carbon-offset-info {
+            margin: 20px;
+        }
+        .carbon-offset-label {
+            font-weight: bold;
+        }
+        .signature {
+            margin-top: 100px;
+            text-align: center;
+            font-size: 24px;
+        }
+        .website-link {
+            color: #0C4A37;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            Carbset
+        </div>
+
+        <div class="marquee">
+            Carbon Offset Certificate
+        </div>
+
+        <div class="assignment">
+            This certificate is presented to
+        </div>
+
+        <div class="person">
+            {{customerName}}
+        </div>
+
+        <div class="reason">
+            For actively participating in carbon offset initiatives
+        </div>
+
+        <div class="carbon-offset-info">
+            <p><span class="carbon-offset-label">Carbon Offset Details:</span></p>
+            <p>- Total Carbon Offset: 100 tons</p>
+            <p>- Project Name: {{productName}}</p>
+            <p>- Project Location: ABC Country</p>
+            <p>- Ordered on: {{orderDate}}</p>
+        </div>
+
+        <div class="signature">
+            <p>___________________________</p>
+            <p>Authorized Signature</p>
+        </div>
+
+        <div class="website-link">
+            <a href="https://carbset.com">carbset.com</a>
+        </div>
+    </div>
+</body>
+</html>

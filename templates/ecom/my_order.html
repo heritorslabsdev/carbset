@@ -1,0 +1,205 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+    height: 36px;
+    width: 120px;
+    border: none;
+    color:white;
+    background: #078586;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    text-decoration:none;
+  }
+
+  .track {
+    position: relative;
+    background-color: #ddd;
+    height: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 60px;
+    margin-top: 50px
+}
+
+.track .step {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    width: 25%;
+    margin-top: -18px;
+    text-align: center;
+    position: relative
+}
+
+.track .step.active:before {
+    background: #FF5722
+}
+
+.track .step::before {
+    height: 7px;
+    position: absolute;
+    content: "";
+    width: 100%;
+    left: 0;
+    top: 18px
+}
+
+.track .step.active .icon {
+    background: #ee5435;
+    color: #fff
+}
+
+.track .icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 100%;
+    background: #ddd
+}
+
+.track .step.active .text {
+    font-weight: 400;
+    color: #000
+}
+
+.track .text {
+    display: block;
+    margin-top: 7px
+}
+
+  .button:hover {
+    color:white;
+  }
+
+  .carter p {
+    color: #078586;
+  }
+
+  .prod{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+
+  }
+
+  .prod2{
+    margin-left: 40px;
+
+  }
+
+  .verse{
+    padding-top: 10px;
+    width: 600px;
+  }
+
+  .linka1{
+    margin-left: 10px;
+  }
+
+  .linka2{
+    margin-left: 10px;
+  }
+
+  .linka1 i{
+    color: #0F57B3;
+    background-color: #E2EDFB;
+  }
+
+  .linka2 i{
+    color: #0fb31d;
+    background-color: #e2fbe3;
+  }
+
+  .linka1 a{
+    color: #0F57B3;
+  }
+
+  .linka2 a{
+    color: #0fb31d;
+  }
+
+
+  @media screen and (max-width: 900px) {
+    .prod {
+        
+    }
+
+    .prod2{
+        margin-left: 0px;
+        width: 300px;
+    }
+    .verse{
+        width: 300px;
+    }
+
+    .linka1{
+        margin-top: 15px;
+        margin-left: 0px;
+      }
+    .linka2{
+        margin-top: 15px;
+        margin-left: 0px;
+      }
+
+  }
+</style>
+
+<section>
+  <div class='carter' style="padding:50px; margin:20px 10px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;color:#078586;">
+      <h3>My Orders</h3>
+    </div>
+    <hr>
+    {% for products,order in data %}
+      {%for product in products%}
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center;">
+        <div class="prod">
+          <img src="{% static product.product_image.url %}" style="width: 100px; height: 100px; border-radius: 15px;" alt="">
+          <div class="prod2" >
+            <h6 class='verse'><strong>{{product.name}}:</strong>{{product.description}}.</h6>
+            <h6 style="width: 300px;"><strong>Product Price:</strong>{{product.price}}</h6>
+            <h6 style="width: 300px;"><strong>Shipment Address:</strong>{{order.address}}</h6>
+            <h6 style="width: 300px;"><strong>Status:</strong>{{order.status}}</h6>
+  
+          </div>
+        </div>
+        <div class="linka1">
+            <a href="{% url 'download-invoice' order.id product.id  %}"><i style="padding: 3px 6px;  border-radius: 5px;" class="uil uil-invoice" aria-hidden="true"></i>  Download Invoice</a>
+        </div>
+        <div class="linka2">
+            <a href="{% url 'download_certificate' order.id product.id %}"><i style="padding: 3px 6px;  border-radius: 5px;" class="uil uil-file-landscape-alt" aria-hidden="true"></i>  Download Certificate</a>
+        </div>
+        
+      </div>
+      <hr>
+      {%endfor%}
+     
+    {% endfor %}
+    
+    
+      </div>
+  </div>
+ 
+      
+</div>
+</div>       
+</div>
+</div>
+
+</section>
+
+{% endblock content %}
+
